@@ -19,7 +19,43 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
+import {Swiper} from 'swiper';
+import { Autoplay, Keyboard, Navigation, Pagination } from 'swiper/modules';
 
-/* eslint-disable no-console */
-console.log( 'Hello World! (from wpdev-furryblock block)' );
-/* eslint-enable no-console */
+document.addEventListener('DOMContentLoaded', () => {
+  new Swiper('.swiper', {
+    loop: true,
+		keyboard: true,
+		createElements: true,
+		autoplay: {
+			delay:2500,
+			disableOnInteraction: false,
+		},
+		centerdSlides: false,
+		modules:[Autoplay, Keyboard, Navigation, Pagination],
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+			dynamicBullets: true,
+    },
+		direcction:'horizontal',
+		slidesPerView:'auto',
+		effect:'coverflow',
+		covertflowEffect:{
+			rotate:50,
+			stretch:0,
+			depth:100,
+			modifier:1,
+			slideShadows:true,
+		},
+		initalSlide:0,
+		spaceBetween:10,
+  });
+});
+
+/* eslint-disable no-c
+ * onsole */

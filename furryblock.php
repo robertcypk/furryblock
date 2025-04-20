@@ -53,7 +53,7 @@ function wpdev_furryblock_block_init() {
 	 */
 	$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
 	foreach ( array_keys( $manifest_data ) as $block_type ) {
-		register_block_type( __DIR__ . "/build/{$block_type}" );
+		register_block_type( __DIR__ . "/build/{$block_type}");
 	}
 }
 add_action( 'init', 'wpdev_furryblock_block_init' );

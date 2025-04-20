@@ -8,7 +8,7 @@ return array(
 		'version' => '0.1.0',
 		'title' => 'Furryblock',
 		'category' => 'widgets',
-		'icon' => 'smiley',
+		'icon' => 'slider',
 		'description' => 'Example block scaffolded with Create Block tool.',
 		'example' => array(
 			
@@ -21,6 +21,21 @@ return array(
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
 		'render' => 'file:./render.php',
-		'viewScript' => 'file:./view.js'
+		'viewScript' => 'file:./view.js',
+		'attributes' => array(
+			'images' => array(
+				'imageUrl' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'imageAlt' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'default' => array(
+					
+				)
+			)
+		)
 	)
 );

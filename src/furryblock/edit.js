@@ -11,8 +11,21 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	MediaUpload,
+	MediaUploadCheck,
+	BlockControls,
+	InspectorControls
+} from '@wordpress/block-editor';
+import {
+	Button
+} from "@wordpress/components";
+import {
+	Fragment
+} from "@wordpress/element";
 
+import ServerSideRender from "@wordpress/server-side-render";
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -29,10 +42,43 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
+	const BLockProps = useBlockProps();
+	const {imageUrl,imageAlt}=attributes.images;
+	const onSelectImage = (media) => {
+  const newImage = media.map(img=>({
+			imageUrl: img.url,
+			imageAlt: img.alt,
+		}))
+	const merge = attributes.images.concat(newImage);
+	setAttributes({images:merge});
+	};
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Furryblock – hello from the editor!', 'furryblock' ) }
-		</p>
+		<div className="swiper-block" {...BLockProps}>
+			<div className="swiper-block-content">
+			{attributes.images.map((img,index)=>(
+			  <figure>
+					<img id={index} src={img.imageUrl} alt={img.imageAlt} style={{ maxWidth:'100%' }} />
+				</figure>
+			))}
+			</div>
+	   <InspectorControls>
+     	<MediaUploadCheck>
+					<MediaUpload
+					onSelect={onSelectImage}
+					multiple
+					allowedType={['image']}
+					value={attributes.images}
+					render={({open})=>(
+						<Button onClick={open} isPrimary>
+							Upload Image
+						</Button>
+					)}
+					/>
+				</MediaUploadCheck>
+			</InspectorControls>
+			<ServerSideRender block="wpdev/furryblock" attributes={attributes} />
+		</div>
 	);
 }
